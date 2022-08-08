@@ -39,7 +39,7 @@ Config.Locations = { -- Edit the various interaction points for players or creat
 	    [2] = vector3(-254.54, 6331.78, 32.43), -- paleto
     },
     ["duty"] = {
-        [1] = vector3(311.18, -599.25, 43.29),
+        [1] = vector3(311.18, -599.24, 43.29),
         [2] = vector3(-254.88, 6324.5, 32.58),
     },
     ["vehicle"] = {
@@ -47,11 +47,11 @@ Config.Locations = { -- Edit the various interaction points for players or creat
         [2] = vector4(-234.28, 6329.16, 32.15, 222.5),
     },
     ["helicopter"] = {
-        [1] = vector4(351.58, -587.45, 74.16, 160.5),
+        [1] = vector4(351.09, -587.95, 74.17, 259.65),
         [2] = vector4(-475.43, 5988.353, 31.716, 31.34),
     },
     ["armory"] = {
-        [1] = vector3(309.93, -602.94, 43.29),
+        [1] = vector3(310.3, -599.67, 43.29),
         [2] = vector3(-245.13, 6315.71, 32.82),
     },
     ["roof"] = {
@@ -61,7 +61,7 @@ Config.Locations = { -- Edit the various interaction points for players or creat
         [1] = vector3(298.74, -599.33, 43.29),
     },
     ["stash"] = {
-        [1] = vector3(309.78, -596.6, 43.29),
+        [1] = vector3(310.41, -597.54, 43.29),
     },
     ["beds"] = {
         [1] = {coords = vector4(353.1, -584.6, 43.11, 152.08), taken = false, model = 1631638868},
@@ -84,14 +84,14 @@ Config.Locations = { -- Edit the various interaction points for players or creat
         [4] = {coords = vector4(1771.85, 2591.85, 45.66, 91.51), taken = false, model = 2117668672},
     },
     ["stations"] = {
-        [1] = {label = Lang:t('info.pb_hospital'), coords = vector4(304.27, -600.33, 43.28, 272.249)}
+        [1] = {label = Lang:t('info.pb_hospital'), coords = vector4(309.64, -589.43, 43.29, 66.56)}
     }
 }
 
 Config.AuthorizedVehicles = { -- Vehicles players can use based on their ambulance job grade level
 	-- Grade 0
 	[0] = {
-		["ambulance"] = "Ambulance",
+		["emsnspeedo"] = "Ambulance",
 	},
 	-- Grade 1
 	[1] = {
@@ -486,12 +486,41 @@ Config.Weapons = { -- Correspond weapon names to their class number
     [`WEAPON_EXHAUSTION`] = Config.WeaponClasses['SUFFOCATING'], -- Exhaust
     [`WEAPON_BZGAS`] = Config.WeaponClasses['SUFFOCATING'],
     [`WEAPON_SMOKEGRENADE`] = Config.WeaponClasses['SUFFOCATING'],
+
+        --[[ HIGH CALIBER ]]
+        [`WEAPON_DE`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_M4`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_HK416`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_AR15`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_AK47`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_M70`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_SCARH`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_MK14`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_M110`] = Config.WeaponClasses['HIGH_CALIBER'],
+        [`WEAPON_HUNTINGRIFLE`] = Config.WeaponClasses['HIGH_CALIBER'],
+        --[[ MEDIUM CALIBER ]]
+        [`WEAPON_UZI`] = Config.WeaponClasses['MEDIUM_CALIBER'],
+        [`WEAPON_MAC10`] = Config.WeaponClasses['MEDIUM_CALIBER'],
+        [`WEAPON_MP9`] = Config.WeaponClasses['MEDIUM_CALIBER'],
+        --[[ SMALL CALIBER ]]
+        [`WEAPON_GLOCK17`] = Config.WeaponClasses['SMALL_CALIBER'],
+        [`WEAPON_M9`] = Config.WeaponClasses['SMALL_CALIBER'],
+        [`WEAPON_M1911`] = Config.WeaponClasses['SMALL_CALIBER'],
+        [`WEAPON_FNX45`] = Config.WeaponClasses['SMALL_CALIBER'],
+        --[[ SHOTGUN ]]
+        [`WEAPON_REMINGTON`] = Config.WeaponClasses['SHOTGUN'],
+        [`WEAPON_MOSSBERG`] = Config.WeaponClasses['SHOTGUN'],
+        --[[ CUTTING ]]
+        [`WEAPON_SHIV`] = Config.WeaponClasses['CUTTING'],
+        [`WEAPON_KATANA`] = Config.WeaponClasses['CUTTING'],
+        --[[ HEAVY IMPACT ]]
+        [`WEAPON_SLEDGEHAMMER`] = Config.WeaponClasses['HEAVY_IMPACT'],
 }
 
 Config.VehicleSettings = { -- Enable or disable vehicle extras when pulling them from the ambulance job vehicle spawner
-    ["car1"] = { -- Model name
+    ["emsnspeero"] = { -- Model name
         ["extras"] = {
-            ["1"] = false, -- on/off
+            ["1"] = true, -- on/off
             ["2"] = true,
             ["3"] = true,
             ["4"] = true,

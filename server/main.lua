@@ -394,7 +394,7 @@ QBCore.Commands.Add('aheal', Lang:t('info.heal_player_a'), {{name = 'id', help =
 end, 'admin')
 
 -- Items
-
+-- add items
 QBCore.Functions.CreateUseableItem("ifaks", function(source, item)
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
@@ -424,6 +424,46 @@ QBCore.Functions.CreateUseableItem("firstaid", function(source, item)
 	local Player = QBCore.Functions.GetPlayer(src)
 	if Player.Functions.GetItemByName(item.name) ~= nil then
 		TriggerClientEvent("hospital:client:UseFirstAid", src)
+	end
+end)
+
+QBCore.Functions.CreateUseableItem("syringe_morphine", function(source, item)
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	if Player.Functions.GetItemByName(item.name) ~= nil then
+		TriggerClientEvent("hospital:client:UseMorphine", src)
+	end
+end)
+
+QBCore.Functions.CreateUseableItem("syringe_adrenaline", function(source, item)
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	if Player.Functions.GetItemByName(item.name) ~= nil then
+		TriggerClientEvent("hospital:client:UseAdrenaline", src)
+	end
+end)
+
+QBCore.Functions.CreateUseableItem("large_medkit", function(source, item)
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	if Player.Functions.GetItemByName(item.name) ~= nil then
+		TriggerClientEvent("hospital:client:UseLargeMedkit", src)
+	end
+end)
+
+QBCore.Functions.CreateUseableItem("syringe_zeus", function(source, item)
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	if Player.Functions.GetItemByName(item.name) ~= nil then
+		TriggerClientEvent("hospital:client:UseZeus", src)
+	end
+end)
+
+QBCore.Functions.CreateUseableItem("syringe_m1ab", function(source, item)
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	if Player.Functions.GetItemByName(item.name) ~= nil then
+		TriggerClientEvent("hospital:client:UseM1AB", src)
 	end
 end)
 

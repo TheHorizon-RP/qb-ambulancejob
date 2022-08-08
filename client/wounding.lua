@@ -33,6 +33,34 @@ local function ApplyBleed(level)
 end
 
 -- Events
+-- add items
+RegisterNetEvent('hospital:client:UseLargeMedkit', function()
+    local ped = PlayerPedId()
+    QBCore.Functions.Progressbar("use_large_medkit", Lang:t('Using Medkit'), 8000, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {
+		animDict = "anim@amb@business@weed@weed_inspecting_high_dry@",
+		anim = "weed_inspecting_high_base_inspector",
+		flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(ped, "anim@amb@business@weed@weed_inspecting_high_dry@", "weed_inspecting_high_base_inspector", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "large_medkit", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["large_medkit"], "remove")
+        SetEntityHealth(ped, GetEntityHealth(ped) + 70)
+        if math.random(1, 100) < 50 then
+            RemoveBleed(1)
+        end
+        if math.random(1, 100) < 7 then
+            ResetPartial()
+        end
+    end, function() -- Cancel
+        StopAnimTask(ped, "anim@amb@business@weed@weed_inspecting_high_dry@", "weed_inspecting_high_base_inspector", 1.0)
+        QBCore.Functions.Notify(Lang:t('error.canceled'), "error")
+    end)
+end)
 
 RegisterNetEvent('hospital:client:UseIfaks', function()
     local ped = PlayerPedId()
@@ -115,6 +143,166 @@ RegisterNetEvent('hospital:client:UsePainkillers', function()
         StopAnimTask(ped, "mp_suicide", "pill", 1.0)
         QBCore.Functions.Notify(Lang:t('error.canceled'), "error")
     end)
+end)
+
+RegisterNetEvent('hospital:client:UseMorphine', function()
+    local ped = PlayerPedId()
+    QBCore.Functions.Progressbar("syringe_morphine", 'Using Morphine', 500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {
+		animDict = "mp_suicide",
+		anim = "weed_inspecting_high_base_inspector",
+		flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "syringe_morphine", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["syringe_morphine"], "remove")
+        TriggerServerEvent('hud:server:RelieveStress', math.random(20, 50))
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] - 15)
+        SetEntityHealth(ped, GetEntityHealth(ped) + 10)
+        AddArmourToPed(PlayerPedId(), 10)
+        onPainKillers = true
+        if painkillerAmount < 3 then
+            painkillerAmount = painkillerAmount + 10
+        end
+    end, function() -- Cancel
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        QBCore.Functions.Notify(Lang:t('error.canceled'), "error")
+    end)
+end)
+
+RegisterNetEvent('hospital:client:UseAdrenaline', function()
+    local ped = PlayerPedId()
+    QBCore.Functions.Progressbar("syringe_adrenaline", 'Using Adrenaline', 500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {
+		animDict = "mp_suicide",
+		anim = "weed_inspecting_high_base_inspector",
+		flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "syringe_adrenaline", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["syringe_adrenaline"], "remove")
+        TriggerServerEvent('hud:server:GainStress', math.random(1, 10))
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] - 25)
+        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] - 25)
+        SetEntityHealth(ped, GetEntityHealth(ped) + 20)
+        AddArmourToPed(PlayerPedId(), 20)
+        SetRunSprintMultiplierForPlayer(PlayerId(), 1.2)
+            Wait(20000)
+        SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
+        onPainKillers = true
+        if painkillerAmount < 3 then
+            painkillerAmount = painkillerAmount + 10
+        end
+    end, function() -- Cancel
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        QBCore.Functions.Notify(Lang:t('error.canceled'), "error")
+    end)
+end)
+
+RegisterNetEvent('hospital:client:UseZeus', function()
+    local ped = PlayerPedId()
+    QBCore.Functions.Progressbar("syringe_zeus", 'Using Zeus', 500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {
+		animDict = "mp_suicide",
+		anim = "weed_inspecting_high_base_inspector",
+		flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "syringe_zeus", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["syringe_zeus"], "remove")
+        TriggerServerEvent('hud:server:RelieveStress', math.random(100, 100))
+        SetEntityHealth(ped, GetEntityHealth(ped) + 100)
+        AddArmourToPed(PlayerPedId(), 100)
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + 100)
+        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + 100)
+        Wait(25000)
+        TriggerServerEvent('hud:server:GainStress', math.random(50, 50))
+        SetEntityHealth(ped, GetEntityHealth(ped) - 50)
+        SetPedArmour(PlayerPedId(), 50)
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] - 50)
+        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] - 50)
+        onPainKillers = true
+        if painkillerAmount < 3 then
+            painkillerAmount = painkillerAmount + 10
+        end
+    end, function() -- Cancel
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        QBCore.Functions.Notify(Lang:t('error.canceled'), "error")
+    end)
+end)
+
+RegisterNetEvent('hospital:client:UseM1AB', function()
+    local ped = PlayerPedId()
+    QBCore.Functions.Progressbar("syringe_m1ab", 'Using M1AB', 2000, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {
+		animDict = "mp_suicide",
+		anim = "weed_inspecting_high_base_inspector",
+		flags = 49,
+    }, {}, {}, function() -- Done
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        TriggerServerEvent("QBCore:Server:RemoveItem", "syringe_m1ab", 1)
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["syringe_m1ab"], "remove")
+        TriggerServerEvent('hud:server:RelieveStress', math.random(70, 70))
+        TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + 70)
+        TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + 70)
+        SetEntityHealth(ped, GetEntityHealth(ped) + 70)
+        AddArmourToPed(PlayerPedId(), 70)
+        onPainKillers = true
+        if painkillerAmount < 3 then
+            painkillerAmount = painkillerAmount + 10
+        end
+    end, function() -- Cancel
+        StopAnimTask(ped, "mp_suicide", "pill", 1.0)
+        QBCore.Functions.Notify(Lang:t('error.canceled'), "error")
+    end)
+end)
+
+RegisterNetEvent('hospital:client:RevivePlayer', function()
+    QBCore.Functions.TriggerCallback('QBCore:HasItem', function(hasItem)
+        if hasItem then
+            local player, distance = GetClosestPlayer()
+            if player ~= -1 and distance < 5.0 then
+                local playerId = GetPlayerServerId(player)
+                isHealingPerson = true
+                TriggerEvent('animations:client:EmoteCommandStart', {"cpr"})
+                QBCore.Functions.Progressbar("hospital_revive", Lang:t('progress.revive'), 5000, false, true, {
+                    disableMovement = false,
+                    disableCarMovement = false,
+                    disableMouse = false,
+                    disableCombat = true,
+                }, {}, {}, {}, function() -- Done
+                    isHealingPerson = false
+                    TriggerEvent('animations:client:EmoteCommandStart', {"C"})
+                    QBCore.Functions.Notify(Lang:t('success.revived'), 'success')
+                    TriggerServerEvent("hospital:server:RevivePlayer", playerId)
+                end, function() -- Cancel
+                    isHealingPerson = false
+                    TriggerEvent('animations:client:EmoteCommandStart', {"C"})
+                    QBCore.Functions.Notify(Lang:t('error.cancled'), "error")
+                end)
+            else
+                QBCore.Functions.Notify(Lang:t('error.no_player'), "error")
+            end
+        else
+            QBCore.Functions.Notify(Lang:t('error.no_firstaid'), "error")
+        end
+    end, 'firstaid')
 end)
 
 -- Threads
